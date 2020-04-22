@@ -10,7 +10,10 @@ Hozz létre egy új projektet `locations` néven.
 
 Létre kell hozni egy `LocationService` és `LocationDao` osztályt.
 A  `LocationDao` osztály a `Location` példányokat egy belső
-listában tárolja. Az azonosítókat egy belső számlálóból adja ki.
+kollekcióban tárolja. Az azonosítókat egy belső számlálóból adja ki.
+
+A kollekció lehet egy `List<Location>`, de akár lehet egy `Map<Long, Location>`
+is, ez utóbbi esetben a kulcs az id, az érték meg maga a `Location` példány.
 
 A `LocationService` metódusai:
 

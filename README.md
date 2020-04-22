@@ -2,7 +2,8 @@
 
 ## Javasolt haladás
 
-* Először nézd meg a videót! A videóban szereplő forráskódot a [demos](demos) könyvtárban találod.
+* Először nézd meg a videót! A videóban szereplő forráskódot a [demos](demos) könyvtárban találod, a legtöbb videóhoz megtalálható ott a forráskód.
+Lentebb a tematikában található, hogy melyik leckéhez melyik könyvtárban.
 * Minden videóhoz van gyakorlati feladat, melynek a leírását itt találod: [spring-gyak.md](spring-gyak.md).
   A gyakorlati feladatok egymásra épülnek.
 
@@ -45,6 +46,27 @@
     * Hiba- és kivételkezelés (`spring-webmvc-exceptions`)
     * Backend integráció
     * Restful webszolgáltatások (`spring-webmvc-rest`)
+
+## Unit- és integrációs tesztelés Spring környezetben
+
+Az prezentáción kimaradt, hogy az `AnnotationConfigApplicationContext`-et érdemes zárni.
+Ezért a kód helyesen:
+
+```java
+public class EmployeeServiceIntegrationTest {
+
+    @Test
+    public void testSaveAndList() {
+        try (AnnotationConfigApplicationContext ctx =
+                new AnnotationConfigApplicationContext(AppConfig.class))
+            EmployeeService employeeService = ctx.getBean(EmployeeService.class);
+
+            employeeService.saveEmployee("John Doe");
+            assertEquals(List.of("John Doe"), employeeService.listEmployees());
+        }
+    }
+}
+```
 
 ## Naplózás
 
