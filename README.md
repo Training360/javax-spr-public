@@ -196,11 +196,17 @@ Ekkor azonban a `MysqlDataSource` csomagja más, az osztály neve minősítve
 
 ## Séma inicializálás Flyway eszközzel
 
-A Flyway videóban szereplő létrehozási módja az újabb verziókban deprecated, helyette használjuk ezt:
+A Flyway videóban szereplő létrehozási módja az újabb verziókban deprecated, helyette használjuk a következőt!
+Valamint a `@Bean` annotációval ellátott metódusból vissza is kell térni egy példánnyal, tehát 
+használni kell a `return` utasítást.
 
 ```java
-Flyway flyway = Flyway.configure().dataSource(dataSource()).load();
-flyway.migrate();
+@Bean
+public Flyway flyway() {
+    Flyway flyway = Flyway.configure().dataSource(dataSource()).load();
+    flyway.migrate();
+    return flyway;
+}
 ```
 
 ## Spring Data JPA
