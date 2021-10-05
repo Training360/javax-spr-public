@@ -40,11 +40,11 @@ A `LocationService` delegálja a kéréseket a `LocationDao` osztálynak. Legyen
 
 Írj egy unit tesztet a `LocationService` `listLocations()` metódusára! Mivel a visszatérési érték típusa
 `List<Location>`, nincs JUnit assert, mellyel egy utasítással le lehetne tesztelni a lista tartalmát.
-Ezért érdemes átalakítan pl. a nevek listájává, és erre már lehet `assertEquals()` metódussal összehasonlítani.
+Ezért érdemes átalakítani pl. a nevek listájává, és erre már lehet `assertEquals()` metódussal összehasonlítani.
 
 ```java
 assertEquals(List.of("Budapest", "Győr"),
-      locations.stream().map(Employee::getName)
+      locations.stream().map(Location::getName)
         .collect(Collectors.toList()));
 ```
 
