@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/page :: header">
+</head>
+<body>
+<div class="container">
+    <h1 th:replace="fragments/page :: title"></h1>
+
+    <div>Id: <span th:text="${location.id}"></span></div>
+    <div>Name: <span th:text="${location.name}"></span></div>
+    <div>Lat: <span th:text="${location.lat}"></span></div>
+    <div>Lon: <span th:text="${location.lon}"></span></div>
+    <p><a th:href="@{/}">Back</a></p>
+</div>
+</body>
+</html>

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/page :: header">
+</head>
+<body>
+
+<div class="container">
+
+    <h1 th:replace="fragments/page :: title"></h1>
+
+    <h2>Error - Servlet API</h2>
+
+    <div th:text="${#request.getAttribute('javax.servlet.error.status_code')}" />
+    <div th:text="${#request.getAttribute('javax.servlet.error.message')}" />
+
+</div>
+
+</body>
+</html>

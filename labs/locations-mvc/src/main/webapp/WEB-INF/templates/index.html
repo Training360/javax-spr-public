@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/page :: header">
+</head>
+<body>
+<div class="container">
+    <h1 th:replace="fragments/page :: title"></h1>
+    <div th:if="${message}" th:text="${message}" class="alert alert-success"></div>
+    <div><a href="?lang=hu_HU">Magyar</a> <a href="?lang=en_US">English</a></div>
+    <div><a href="?theme=normal">Normal</a> <a href="?theme=grayscale">Grayscale</a></div>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th th:text="#{index.identifier}">Id</th>
+            <th th:text="#{index.name}">Name</th>
+            <th th:text="#{index.lat}">Latitude</th>
+            <th th:text="#{index.lon}">Longitude</th>
+            <th th:text="#{index.img}">Image</th>
+        </tr>
+        </thead>
+        <tbody>
+            <th:block th:each="location : ${locations}">
+                <tr>
+                    <td><a th:href="@{/location/{id}(id=${location.id})}"
+                           th:text="${location.id}"></a></td>
+                    <td th:text="${location.name}"></td>
+                    <td th:text="${location.lat}"></td>
+                    <td th:text="${location.lon}"></td>
+                    <td><img th:if="${location.image}" th:src="@{/images/{id}(id=${location.id})}" alt="Location image"/></td>
+                </tr>
+            </th:block>
+        </tbody>
+    </table>
+    <form th:action="@{/}" th:object="${locationForm}" method="post" enctype="multipart/form-data">
+        <div class="form-group" th:classappend="${#fields.hasErrors('name') or #fields.hasErrors('coordinates')} ? 'is-invalid'">
+            <label for="name-input" th:text="#{index.form.name}">Name</label>
+            <input th:field="*{name}" id="name-input" class="form-control"
+                   th:classappend="${#fields.hasErrors('name')} ? 'is-invalid'"/>
+            <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="invalid-feedback"></div>
+            <label for="coordinates-input" th:text="#{index.form.coordinates}">Coordinates</label>
+            <input th:field="*{coordinates}" id="coordinates-input" class="form-control"
+                   th:classappend="${#fields.hasErrors('coordinates')} ? 'is-invalid'"/>
+            <div th:if="${#fields.hasErrors('coordinates')}" th:errors="*{coordinates}" class="invalid-feedback"></div>
+            <label for="file-input" th:text="#{index.form.image}">Image</label>
+            <input type="file" th:field="*{file}" class="form-control-file" id="file-input" />
+        </div>
+        <button type="submit" class="btn btn-primary" th:text="#{index.form.submitbtn}">Create location</button>
+    </form>
+</div>
+</body>
+</html>

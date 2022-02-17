@@ -1,6 +1,6 @@
 # JAVAX-SPR - Alkalmazásfejlesztés Spring keretrendszerrel tanfolyam gyakorlati feladatok
 
-## Inversion of Control és Dependency injection
+## Inversion of Control és Dependency Injection
 
 Feladatként egy kedvenc helyeket nyilvántartó alkalmazást kell fejleszteni.
 Egy kedvenc helyet a `Location` osztály reprezentál. Rendelkezik egy azonosítóval, névvel
@@ -38,31 +38,44 @@ A `LocationService` delegálja a kéréseket a `LocationDao` osztálynak. Legyen
 
 ## Unit és integrációs tesztelés Spring környezetben
 
-Írj egy unit tesztet a `LocationService` `listLocations()` metódusára! Mivel a visszatérési érték típusa
+Írj egy unit tesztet a `LocationDaoTest` osztályba a  `LocationDao` `save()` metódusára, hívd meg kétszer, majd ellenőrizd, hogy a `listLocations()` metódus jó értékeket ad vissza!
+
+Mivel a visszatérési érték típusa
 `List<Location>`, nincs JUnit assert, mellyel egy utasítással le lehetne tesztelni a lista tartalmát.
 Ezért érdemes átalakítani pl. a nevek listájává, és erre már lehet `assertEquals()` metódussal összehasonlítani.
 
 ```java
-assertEquals(List.of("Budapest", "Győr"),
+assertEquals(Arrays.asList("Budapest", "Győr"),
       locations.stream().map(Location::getName)
         .collect(Collectors.toList()));
 ```
 
-Írj egy integrációs tesztet, mely az összes metódust teszteli! Írj egy `deleteAll()` metódust a `LocationDao`-ba,
-és hívd meg minden teszt metódus előtt! Ez kitörli a lista tartalmát, ezzel inicializálva a tesztek lefutása előtti
+Írj egy unit tesztet a `LocationServiceTest` osztályba a `LocationService` `createLocation()` metódusára! 
+
+Írj integrációs teszteket a `LocationServiceIntegrationTest` osztályba, 
+melyek a `LocationService` metódusait letesztelik! Írj egy `deleteAll()` metódust a `LocationDao`-ba,
+és hívd meg minden teszt metódus előtt, ehhez a teszt osztályba a
+`LocationDao`-t is injektálni kell! Ez kitörli a lista tartalmát, ezzel inicializálva a tesztek lefutása előtti
 állapotot. Tedd egy `@Before` annotációval ellátott metódusba!
 
 A következőképp működjenek a tesztesetek:
 
 * `findAll()` metódus esetén hívd meg a `save()` metódust párszor, majd olvasd vissza a `findAll()` metódussal az
   elmentett objektumokat. Használd az előző assert megoldást! Ez már a `save()` metódust is teszteli
-* `findById()` metódus esetén hívd meg a `save()` metódust! De mivel ez nem ad vissza `id` értéket, utána le kell
-  listázni a `findAll()` metódussal, majd az ott visszakapott objektum `id` mezőjével már meg lehet hívni a 
+* `findById()` metódus esetén hívd meg a `save()` metódust! A visszakapott objektum `id` mezőjével már meg lehet hívni a 
   `findById()` metódust
-* `update()` metódus hasonló az előzőhöz, le kell menteni, majd visszaolvasni az `id` miatt, utána `update()`, majd
+* `update()` metódus hasonló az előzőhöz, le kell menteni, utána `update()` a visszakapott objektumban
+* lévő `id` mező alapján, majd
   olvasás a `findById()` metódussal, és assert, hogy változott-e az érték
-* `delete()` metódus esetén le kell menteni, listázni hogy legyen `id`, majd `delete()`, és újra listázás, és üres
+* `delete()` metódus esetén le kell menteni, majd `delete()` a visszakapott objektumban
+  lévő `id` alapján, és újra listázás, és üres
   kollekciót kell kapni
+
+Mivel a `getLocationById()` visszatérési típusa `Optional`, ezért használható meghívásakor a következő:
+
+```java
+locationService.getLocationById(id).orElseThrow(() -> new IllegalStateException("Not found"));
+```
 
 ## Beanek személyre szabása
 
@@ -70,10 +83,11 @@ Hozz létre egy `Location` beant az Application Contextben, melynek típusa scop
 Legyen a neve `Choose name`, legyen a koordinátája `47,50, 19,05`. Legyen a neve `templateLocation`
 
 A `LocationService`-ben hozz létre egy `createLocationTemplate()` metódust, mely
-létrehoz mindig egy új példányt az előbbi prototype beanből. Ehhez az `ApplicationContext`-et
-kell a service-be injektálni, majd a `getBean` metódusát hívni.
+létrehoz mindig egy új példányt az előbbi prototype beanből, és visszaadja azt. Ehhez az `ApplicationContext`-et
+kell a service-be injektálni, majd a `getBean` metódusát hívni. Használj constructor injectiont,
+azaz az `ApplicationContext`-et vedd fel paraméterként a `LocationDao` mellé!
 
-Ellenőrizd integrációs tesztesetben, hogy két egymás után létrehozott példány tényleg nem ugyanaz!
+Ellenőrizd integrációs tesztesetben, hogy két egymás után létrehozott példány tényleg nem ugyanaz, az `==` operátorral!
 
 ## Konfiguráció XML-lel és annotációval
 
@@ -103,6 +117,9 @@ a koordináták változnak, ne történjen semmi.
 metódusa, mely a listát üríti, valamint egy `List<String> getChanges()` metódusa, mellyel a módosítások
 lekérdezhetőek.
 
+Mivel az `ApplicationContext` már injektált, és implementálja az `ApplicationEventPublisher` interfészt,
+ezért nincs szükség más injektálásra, közvetlenül meghívható annak a `publishEvent()` metódusa.
+
 ## Konfigurációs állományok
 
 A `templateLocation` bean `name`, `lat`, `lon` attribútumainak értékét (, ami most a kódban beégetve `Choose name`, stb.) töltsd
@@ -114,8 +131,10 @@ fel egy `application.properties` állományból, ami az értékeket a következ�
 
 Jelenleg a `DummyLocationDao` és a `ListLocationDao` `LocationDao` implementáció létezik az application contextben.
 Módosítsd úgy az alkalmazást, hogy a `DummyLocationDao` csak a `dummy` profile esetén, a `ListLocationDao` pedig
-a `normal` profile esetén legyen aktív. A teszteket módosítsd, hogy a `normal` profile-lal fussanak. A main-t is módosítsd,
-hogy `normal` profile-lal fusson. Írj egy integrációs tesztet a `dummy` profile-lal is.
+a `normal` profile esetén legyen aktív! A teszteket módosítsd, hogy a `normal` profile-lal fussanak! A main-t is módosítsd,
+hogy `normal` profile-lal fusson! Írj egy integrációs tesztet a `dummy` profile-lal is.
+
+Vigyázz, minden tesz esetbe bele kell írni, hogy `normal` profile-lal fusson.
 
 ## Conditional beans
 
@@ -123,6 +142,13 @@ Jelenleg a `DummyLocationDao` és a `ListLocationDao` `LocationDao` implementác
 Különböző profile-ok esetén kerülnek aktiválásra. Módosítsd úgy az alkalmazást, hogy a `DummyLocationDao` csak
 akkor legyen érvényben, ha a `mode=dummy` környezeti változó deklarálva van, ellenkező esetben mindig
 a `ListLocationDao` legyen aktív.
+
+Módosítsd az előző tesztesetet, hogy ne csak a profile legyen `dummy`, hanem a `mode` propery értéke is legyen
+`dummy`! Ehhez használd a következő annotációt!
+
+```java
+@TestPropertySource(properties = "mode=dummy")
+```
 
 ## Naplózás
 
@@ -140,8 +166,64 @@ a tesztesetbe.
 
 ## Spring Framework repository réteg
 
+Hozz létre egy új projektet!
+
 Hozz létre egy `DataSource` beant, mely a saját számítógépre telepített MariaDB adatbázishoz kapcsolódik.
 A kapcsolódási paramétereket az `application.properties` állományból olvassa be.
+
+Írj egy `LocationDao` interfészt, és annak egy `LocationDaoJdbc` implementációját! A következő
+metódusokat implementáld!
+
+```java
+public interface LocationDao {
+    List<Location> findAll();
+
+    long save(String name, double lat, double lon);
+
+    Location findLocationById(long id);
+}
+```
+
+Ebben esetben a generált azonosító visszakérése egy kicsit
+bonyolult, használd a következő példát!
+
+```java
+public long getGeneratedKeys(){
+    try(Connection conn=dataSource.getConnection();
+        PreparedStatement stmt=conn.prepareStatement("insert into employees(emp_name) values (?)",
+        Statement.RETURN_GENERATED_KEYS)
+    ) {
+        stmt.setString(1,name);
+        stmt.executeUpdate();
+        return executeAndGetGeneratedKey(stmt);
+    } catch (SQLException sqle) {
+        throw new IllegalArgumentException("Error by insert",sqle);
+    }
+}
+
+private long executeAndGetGeneratedKey(PreparedStatement stmt) {
+    try (
+        ResultSet rs = stmt.getGeneratedKeys()
+    ) {
+        if (rs.next()) {
+            return rs.getLong(1);
+        } else {
+            throw new SQLException("No key has generated");
+        }
+    } catch (SQLException sqle) {
+        throw new IllegalArgumentException("Error by insert", sqle);
+    }
+}
+```
+
+Megjegyzés: mivel a `ResultSet` ebben az esetben egészen biztosan legfeljebb egy elemet fog tartalmazni, elég
+egy `if` feltételben vizsgálni ennek a jelenlétét. Ha mégsem kaptunk volna vissza eredményt, abban az esetben
+viszont érdemes kivételt dobni, mert az kifejezetten hibát jelez, ha az adatbázis az elvárttal szemben mégsem
+generált az új rekord számára egyedi azonosítót.
+
+Service osztályra most nincs szükség!
+
+Implementálj integrációs teszteket!
 
 ## Séma inicializálás Flyway eszközzel
 
@@ -156,24 +238,23 @@ insert into locations(name, lat, lon) values ('Budapest', 47.4979, 19.0402);
 
 ## Spring JdbcTemplate
 
-Implementáld a `LocationDao` interfészt `JdbcLocationDao` osztállyal, a `JdbcTemplate` használatával!
+Implementáld a `LocationDao` interfészt `LocationDaoJdbcTemplate` osztállyal, a `JdbcTemplate` használatával!
 
 Az eddigi `LocationDao` implementációkon tedd megjegyzésbe a `@Repository` annotációkat, és akkor nem fognak
-beanként megjelenni.
+beanként megjelenni. Vagy ha ráteszed a `@Primary` annotációt az új osztályodra, akkor csak azt fogja a Spring betölteni.
 
-Implementálj integrációs teszteket!
+Futtasd az integrációs teszteket!
 
 ## JPA használata Spring Frameworkkel
 
 Implementáld a `LocationDao` interfészt `JpaLocationDao` osztállyal, JPA használatával!
 
-Futtasd ugyanazokat az integrációs teszteket, melyeket a `JdbcLocationDao` esetén implementáltál!
+Futtasd az integrációs teszteket!
 
 ## Spring Data JPA
 
-A `JpaLocationDao` osztályon lévő `@Repository` annotációt tedd megjegyzésbe!
-Hozz létre egy `LocationRepository` interfészt (`extends JpaRepository`), és
-a `LocationService` hívja ezt a repository-t.
+Hozz létre egy `LocationRepository` interfészt (`extends JpaRepository`), és egy
+`LocationService` osztályt, mely hívja ezt a repository-t!
 
 ## Deklaratív tranzakciókezelés
 
@@ -191,7 +272,7 @@ táblát is Flyway migrációs szkripttel!)
 
 ## Bevezetés a Spring MVC használatába
 
-Hozz létre egy új projektet `locationsweb` néven. Készíts egy oldalt, mely kiírja a következő
+Hozz létre egy új projektet `locations-mvc` néven. Készíts egy oldalt, mely kiírja a következő
 tartalmat:
 
 ```html
@@ -261,7 +342,55 @@ az `addError(ObjectError)` metódusát, és explicit módon töltöd fel hibáva
 
 A kedvenc helyhez lehessen képet is feltölteni! Egészítsd ki az űrlapot úgy,
 hogy fájlt is lehessen megadni! Egészítsd ki a `Location` osztályt egy
-`byte[]` típusú mezővel!
+`Image` típusú mezővel, mely `@Embedded` annotációval van ellátva! Az `Image`
+osztály a következő. Erre azért van szükség, hogy adatbázisban el lehessen
+tárolni a képet blob-ban, és szükség van annak Mime-Type-jára is.
+
+```java
+@Embeddable
+public class Image {
+
+    @Lob
+    @Column(name = "image_content")
+    private byte[] content;
+
+    @Column(name = "file_name")
+    private String contentType;
+
+    public Image() {
+    }
+
+    public Image(byte[] content, String contentType) {
+        this.content = content;
+        this.contentType = contentType;
+    }
+
+    public byte[] getContent() {
+        return content;
+    }
+
+    public void setContent(byte[] content) {
+        this.content = content;
+    }
+
+    public String getContentType() {
+        return contentType;
+    }
+
+    public void setContentType(String contentType) {
+        this.contentType = contentType;
+    }
+}
+```
+
+Készíts egy `ImagesController` osztályt is, ahol le lehet tölteni a képet!
+Legyen elérhető a `/images/{id}` címen. Ez adjon vissza egy `ResponseEntity<Resource>`
+típusú objektumot! A `Resource` legyen `ByteArrayResource`, és a header legyen beállítva a
+kövekezőre:
+
+```java
+.header("Content-Type", image.getContentType())
+```
 
 ## Témák használata (opcionális)
 
