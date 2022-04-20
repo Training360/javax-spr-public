@@ -30,7 +30,7 @@ public class LocationServiceIntegrationTest {
     }
 
     @Test
-    public void testFindAll() {
+    public void testListLocations() {
         locationService.createLocation("BP", 1.2, 1.4);
         locationService.createLocation("SP", 2.5, 3.4);
         assertEquals(Arrays.asList("BP", "SP"), locationService.listLocations().stream()
@@ -38,14 +38,14 @@ public class LocationServiceIntegrationTest {
     }
 
     @Test
-    public void testFindById() {
+    public void testGetLocationById() {
         Location saved = locationService.createLocation("BP", 1.2, 1.4);
         Location location = locationService.getLocationById(saved.getId()).orElseThrow(() -> new IllegalStateException("Not found"));
         assertEquals(saved, location);
     }
 
     @Test
-    public void update() {
+    public void testUpdateLocation() {
         Location saved = locationService.createLocation("BP", 1.2, 1.4);
         locationService.updateLocation(saved.getId(), "ERD", 1.4, 1.7);
         Location updated = locationService.getLocationById(saved.getId()).orElseThrow(() -> new IllegalStateException("Not found"));
@@ -58,7 +58,7 @@ public class LocationServiceIntegrationTest {
     @Test
     public void delete() {
         Location saved = locationDao.save("BP", 1.2, 1.4);
-        locationDao.delete(saved.getId());
+        locationService.deleteLocation(saved.getId());
         assertTrue(locationDao.findAll().isEmpty());
     }
 }

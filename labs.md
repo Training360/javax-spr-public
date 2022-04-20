@@ -60,14 +60,14 @@ melyek a `LocationService` metódusait letesztelik! Írj egy `deleteAll()` metó
 
 A következőképp működjenek a tesztesetek:
 
-* `findAll()` metódus esetén hívd meg a `save()` metódust párszor, majd olvasd vissza a `findAll()` metódussal az
-  elmentett objektumokat. Használd az előző assert megoldást! Ez már a `save()` metódust is teszteli
-* `findById()` metódus esetén hívd meg a `save()` metódust! A visszakapott objektum `id` mezőjével már meg lehet hívni a 
+* `listLocations()` metódus esetén hívd meg a `createLocation()` metódust párszor, majd olvasd vissza a `listLocations()` metódussal az
+  elmentett objektumokat. Használd az előző assert megoldást! Ez már a `createLocation()` metódust is teszteli
+* `findById()` metódus esetén hívd meg a `createLocation()` metódust! A visszakapott objektum `id` mezőjével már meg lehet hívni a 
   `findById()` metódust
-* `update()` metódus hasonló az előzőhöz, le kell menteni, utána `update()` a visszakapott objektumban
-* lévő `id` mező alapján, majd
-  olvasás a `findById()` metódussal, és assert, hogy változott-e az érték
-* `delete()` metódus esetén le kell menteni, majd `delete()` a visszakapott objektumban
+* `updateLocation()` metódus hasonló az előzőhöz, le kell menteni, utána `updateLocation()` a visszakapott objektumban
+  lévő `id` mező alapján, majd
+  olvasás a `getLocationById()` metódussal, és assert, hogy változott-e az érték
+* `deleteLocation()` metódus esetén le kell menteni, majd `deleteLocation()` a visszakapott objektumban
   lévő `id` alapján, és újra listázás, és üres
   kollekciót kell kapni
 
