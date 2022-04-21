@@ -1,6 +1,7 @@
 package locations;
 
 import org.springframework.beans.factory.annotation.Autowired;
+//import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.*;
 import org.springframework.core.env.Environment;
 
@@ -28,7 +29,8 @@ public class AppConfig {
 //    }
 //
 //    @Bean
-//    public LocationService locationService() {
-//        return new LocationService(locationDao());
+//    public LocationService locationService(ApplicationContext context) {
+//        return new LocationService(locationDao(), context);
 //    }
+
 }

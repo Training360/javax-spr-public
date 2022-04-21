@@ -79,13 +79,31 @@ locationService.getLocationById(id).orElseThrow(() -> new IllegalStateException(
 
 ## Beanek személyre szabása
 
-Hozz létre egy `Location` beant az Application Contextben, melynek típusa scope-ja prototype.
-Legyen a neve `Choose name`, legyen a koordinátája `47,50, 19,05`. Legyen a neve `templateLocation`
+Hozz létre egy prototype scope-pal rendelkező `templateLocation` nevű `Location` beant az Application Contextben!
+A kedvenc hely azonosítója legyen `0`, neve `Choose name`, koordinátája `47,50, 19,05`!
 
 A `LocationService`-ben hozz létre egy `createLocationTemplate()` metódust, mely
-létrehoz mindig egy új példányt az előbbi prototype beanből, és visszaadja azt. Ehhez az `ApplicationContext`-et
+létrehoz mindig egy új példányt az előbbi prototype beanből, és visszaadja azt! Ehhez az `ApplicationContext`-et
 kell a service-be injektálni, majd a `getBean` metódusát hívni. Használj constructor injectiont,
 azaz az `ApplicationContext`-et vedd fel paraméterként a `LocationDao` mellé!
+
+Ekkor azonban a `AppConfig` osztály nem fog lefordulni, hiszen már két paramétert vár a konstruktor, és nem egyet.
+
+```java
+@Bean
+public LocationService locationService() {
+    return new LocationService(locationDao());
+}
+```
+
+A megoldás, hogy itt paraméterben injektálni lehet az `ApplicationContext` példányt.
+
+```java
+@Bean
+public LocationService locationService(ApplicationContext context) {
+    return new LocationService(locationDao(), context);
+}
+```
 
 Ellenőrizd integrációs tesztesetben, hogy két egymás után létrehozott példány tényleg nem ugyanaz, az `==` operátorral!
 
