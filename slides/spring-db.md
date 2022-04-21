@@ -1,13 +1,13 @@
 class: inverse, center, middle
 
-.training360-logo[![Training360](resources/training360-logo.svg)]
+
 # Alkalmazásfejlesztés Spring keretrendszerrel - Adatbáziskezelés
 
 ---
 
 class: inverse, center, middle
 
-.training360-logo[![Training360](resources/training360-logo.svg)]
+
 Lecke
 ## Tematika
 
@@ -26,7 +26,7 @@ Lecke
 
 class: inverse, center, middle
 
-.training360-logo[![Training360](resources/training360-logo.svg)]
+
 Lecke
 ##  Spring Framework repository réteg
 
@@ -161,7 +161,7 @@ public class EmployeeDaoTest {
 
 class: inverse, center, middle
 
-.training360-logo[![Training360](resources/training360-logo.svg)]
+
 Lecke
 ## Séma inicializálás Flyway eszközzel
 
@@ -228,7 +228,7 @@ create table employees (id bigint auto_increment,
 
 class: inverse, center, middle
 
-.training360-logo[![Training360](resources/training360-logo.svg)]
+
 Lecke
 ## Spring JdbcTemplate
 
@@ -360,7 +360,7 @@ public long saveEmployeeAndGetId(String name) {
 
 class: inverse, center, middle
 
-.training360-logo[![Training360](resources/training360-logo.svg)]
+
 Lecke
 ## JPA használata Spring Frameworkkel
 
@@ -505,7 +505,7 @@ DAO-n:
 
 class: inverse, center, middle
 
-.training360-logo[![Training360](resources/training360-logo.svg)]
+
 Lecke
 ## Spring Data JPA
 
@@ -694,7 +694,7 @@ public interface EmployeeRepository
 
 class: inverse, center, middle
 
-.training360-logo[![Training360](resources/training360-logo.svg)]
+
 Lecke
 # Deklaratív tranzakciókezelés
 

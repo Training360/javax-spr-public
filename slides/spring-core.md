@@ -1,13 +1,13 @@
 class: inverse, center, middle
 
-.training360-logo[![Training360](resources/training360-logo.svg)]
+
 # Alkalmazásfejlesztés Spring keretrendszerrel - Spring Framework IoC container
 
 ---
 
 class: inverse, center, middle
 
-.training360-logo[![Training360](resources/training360-logo.svg)]
+
 Lecke
 ## Tematika
 
@@ -44,7 +44,7 @@ Lecke
 
 class: inverse, center, middle
 
-.training360-logo[![Training360](resources/training360-logo.svg)]
+
 Lecke
 ##  Bevezetés a Spring Framework használatába
 
@@ -219,7 +219,7 @@ public class CounterAspect {
 
 class: inverse, center, middle
 
-.training360-logo[![Training360](resources/training360-logo.svg)]
+
 Lecke
 ##  Inversion of Control és Dependency Injection
 
@@ -443,7 +443,7 @@ try (AnnotationConfigApplicationContext ctx =
 
 class: inverse, center, middle
 
-.training360-logo[![Training360](resources/training360-logo.svg)]
+
 Lecke
 ## Unit és integrációs tesztelés Spring környezetben
 
@@ -552,7 +552,7 @@ public class EmployeeServiceRunnerIntegrationTest {
 
 class: inverse, center, middle
 
-.training360-logo[![Training360](resources/training360-logo.svg)]
+
 Lecke
 ## Beanek személyre szabása
 
@@ -622,7 +622,7 @@ Lecke
 
 class: inverse, center, middle
 
-.training360-logo[![Training360](resources/training360-logo.svg)]
+
 Lecke
 ## Konfiguráció XML-lel és annotációval
 
@@ -825,7 +825,7 @@ public class AppConfig {
 
 class: inverse, center, middle
 
-.training360-logo[![Training360](resources/training360-logo.svg)]
+
 Lecke
 ## Injektálás konfigurálása
 
@@ -956,7 +956,7 @@ private ApplicationContext ctx;
 
 class: inverse, center, middle
 
-.training360-logo[![Training360](resources/training360-logo.svg)]
+
 Lecke
 ## Eseménykezelés
 
@@ -1041,7 +1041,7 @@ public class Listener implements ApplicationListener<EmployeeHasCreatedEvent> {
 
 class: inverse, center, middle
 
-.training360-logo[![Training360](resources/training360-logo.svg)]
+
 Lecke
 ## Konfigurációs állományok
 
@@ -1082,7 +1082,7 @@ public class AppConfig {
 
 class: inverse, center, middle
 
-.training360-logo[![Training360](resources/training360-logo.svg)]
+
 Lecke
 ## Profile
 
@@ -1165,7 +1165,7 @@ Environment.getActiveProfiles()
 
 class: inverse, center, middle
 
-.training360-logo[![Training360](resources/training360-logo.svg)]
+
 Lecke
 ## Conditional beans
 
@@ -1232,7 +1232,7 @@ public class WebSphereCondition implements Condition {
 
 class: inverse, center, middle
 
-.training360-logo[![Training360](resources/training360-logo.svg)]
+
 Lecke
 ## Naplózás
 
@@ -1279,7 +1279,7 @@ private final Logger logger = LoggerFactory.getLogger(getClass());
 
 class: inverse, center, middle
 
-.training360-logo[![Training360](resources/training360-logo.svg)]
+
 Lecke
 ## Aspektusorientált programozás
 

@@ -1,13 +1,13 @@
 class: inverse, center, middle
 
-.training360-logo[![Training360](resources/training360-logo.svg)]
+
 # Alkalmazásfejlesztés Spring keretrendszerrel - Webalkalmazás fejlesztés
 
 ---
 
 class: inverse, center, middle
 
-.training360-logo[![Training360](resources/training360-logo.svg)]
+
 Lecke
 ## Tematika
 
@@ -19,7 +19,7 @@ Lecke
 
 class: inverse, center, middle
 
-.training360-logo[![Training360](resources/training360-logo.svg)]
+
 Lecke
 ## Bevezetés a Spring MVC használatába
 
@@ -166,7 +166,7 @@ public class HelloController {
 
 class: inverse, center, middle
 
-.training360-logo[![Training360](resources/training360-logo.svg)]
+
 Lecke
 ## Thymeleaf view
 
@@ -279,7 +279,7 @@ public class EmployeeController {
 
 class: inverse, center, middle
 
-.training360-logo[![Training360](resources/training360-logo.svg)]
+
 Lecke
 ## Erőforrások kezelése
 
@@ -313,7 +313,7 @@ public class WebConfig implements WebMvcConfigurer {
 
 class: inverse, center, middle
 
-.training360-logo[![Training360](resources/training360-logo.svg)]
+
 Lecke
 ## Thymeleaf oldalstruktúra
 
@@ -374,7 +374,7 @@ Lecke
 
 class: inverse, center, middle
 
-.training360-logo[![Training360](resources/training360-logo.svg)]
+
 Lecke
 ## Controllerek használata
 
@@ -481,7 +481,7 @@ public ResponseEntity<List<EmployeeDto>> listEmployees(
 
 class: inverse, center, middle
 
-.training360-logo[![Training360](resources/training360-logo.svg)]
+
 Lecke
 ## Hozzáadás és szerkesztés (@ModelAttribute használata)
 
@@ -597,7 +597,7 @@ public class WebAppInitializer extends AbstractAnnotationConfigDispatcherServlet
 
 class: inverse, center, middle
 
-.training360-logo[![Training360](resources/training360-logo.svg)]
+
 Lecke
 ## Tesztelés
 
@@ -678,7 +678,7 @@ public void testListEmployees() throws Exception {
 
 class: inverse, center, middle
 
-.training360-logo[![Training360](resources/training360-logo.svg)]
+
 Lecke
 ## Handlerek
 
@@ -743,7 +743,7 @@ public class WebConfig implements WebMvcConfigurer {
 
 class: inverse, center, middle
 
-.training360-logo[![Training360](resources/training360-logo.svg)]
+
 Lecke
 ## I18N
 
@@ -874,7 +874,7 @@ public LocaleChangeInterceptor localeChangeInterceptor(){
 
 class: inverse, center, middle
 
-.training360-logo[![Training360](resources/training360-logo.svg)]
+
 Lecke
 ## Validáció
 
@@ -954,7 +954,7 @@ public String saveEmployee(@Valid Employee employee, BindingResult bindingResult
 
 class: inverse, center, middle
 
-.training360-logo[![Training360](resources/training360-logo.svg)]
+
 Lecke
 ## Fájlkezelés
 
@@ -1069,7 +1069,7 @@ public String uploadImage(@ModelAttribute UploadImageForm uploadImageForm) {
 
 class: inverse, center, middle
 
-.training360-logo[![Training360](resources/training360-logo.svg)]
+
 Lecke
 ## Témák használata
 
@@ -1158,7 +1158,7 @@ public ThemeChangeInterceptor themeChangeInterceptor() {
 
 class: inverse, center, middle
 
-.training360-logo[![Training360](resources/training360-logo.svg)]
+
 Lecke
 ## Hiba és kivételkezelés
 
@@ -1304,7 +1304,7 @@ public class GlobalControllerExceptionHandler {
 
 class: inverse, center, middle
 
-.training360-logo[![Training360](resources/training360-logo.svg)]
+
 Lecke
 ## Backend integráció
 
@@ -1330,7 +1330,7 @@ Lecke
 
 class: inverse, center, middle
 
-.training360-logo[![Training360](resources/training360-logo.svg)]
+
 Lecke
 ## RESTful webszolgáltatások
 
