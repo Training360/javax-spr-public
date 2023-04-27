@@ -11,7 +11,7 @@ public class ListDaoCondition implements Condition {
             String mode = conditionContext.getEnvironment().getProperty("mode");
             return mode != null && !mode.equals("dummy");
         } else {
-            return false;
+            return true;
         }
     }
 }

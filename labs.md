@@ -150,9 +150,15 @@ fel egy `application.properties` állományból, ami az értékeket a következ�
 Jelenleg a `DummyLocationDao` és a `ListLocationDao` `LocationDao` implementáció létezik az application contextben.
 Módosítsd úgy az alkalmazást, hogy a `DummyLocationDao` csak a `dummy` profile esetén, a `ListLocationDao` pedig
 a `normal` profile esetén legyen aktív! A teszteket módosítsd, hogy a `normal` profile-lal fussanak! A main-t is módosítsd,
-hogy `normal` profile-lal fusson! Írj egy integrációs tesztet a `dummy` profile-lal is.
+hogy `normal` profile-lal fusson! Ezt system property állításával lehet megtenni az Application Context létrehozása előtt:
 
-Vigyázz, minden tesz esetbe bele kell írni, hogy `normal` profile-lal fusson.
+```java
+System.setProperty("spring.profiles.active", "normal");
+```
+
+Írj egy integrációs tesztet a `dummy` profile-lal is.
+
+Vigyázz, minden tesztesetbe bele kell írni, hogy `normal` profile-lal fusson.
 
 ## Conditional beans
 
