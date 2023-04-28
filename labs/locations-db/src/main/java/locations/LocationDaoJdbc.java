@@ -41,6 +41,7 @@ public class LocationDaoJdbc implements LocationDao {
             ps.setString(1, name);
             ps.setDouble(2, lat);
             ps.setDouble(3, lon);
+            ps.executeUpdate();
             return executeAndGetGeneratedKey(ps);
         } catch (SQLException se) {
             throw new IllegalStateException("Cannot insert", se);
