@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/page :: header}">
+</head>
+<body>
+
+    <div class="container">
+
+        <h1 th:replace="~{fragments/page :: title}"></h1>
+
+        <div><a href="?lang=hu_HU">Magyar</a> <a href="?lang=en_US">English</a></div>
+
+        <div><a href="?theme=normal">Normal</a> <a href="?theme=grayscale">Grayscale</a></div>
+
+        <div th:if="${message}" th:text="${message}" class="alert alert-success"></div>
+
+        <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+        </tr>
+        </thead>
+        <tbody>
+            <th:block th:each="employee : ${employees}">
+                <tr>
+                    <td><a th:href="@{/employee/{id}(id=${employee.id})}"
+                           th:text="${employee.id}">100</a></td>
+                    <td th:text="${employee.name}"></td>
+                </tr>
+            </th:block>
+        </tbody>
+    </table>
+
+        <form th:action="@{/}" th:object="${employee}" method="post">
+            <div class="form-group"
+                th:classappend="${#fields.hasErrors('name')} ? ' is-invalid'"
+                >
+                <label for="name-input">Name</label>
+                <input th:field="*{name}" id="name-input" class="form-control"
+                       th:classappend="${#fields.hasErrors('name')} ? ' is-invalid'"/>
+
+                <div th:if="${#fields.hasErrors('name')}"
+                     th:errors="*{name}"
+                     class="invalid-feedback" />
+            </div>
+            <button type="submit" class="btn btn-primary">Create employee</button>
+        </form>
+
+    </div>
+
+</body>
+</html>

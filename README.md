@@ -37,6 +37,6 @@
     * Fájlkezelés (`spring-webmvc-file`)
     * Témák használata (`spring-webmvc-themes`)
     * Hiba- és kivételkezelés (`spring-webmvc-exceptions`)
-    * Backend integráció
+    * Backend integráció (`spring-webmvc-backend`)
     * Restful webszolgáltatások (`spring-webmvc-rest`)
 
